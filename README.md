@@ -6,6 +6,8 @@ a mvc framework for java.
 * route
 * config
 * filter
+* annotion
+* ioc
 
 ## sample
 
