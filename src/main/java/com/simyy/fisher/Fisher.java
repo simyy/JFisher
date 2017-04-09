@@ -1,32 +1,30 @@
 package com.simyy.fisher;
 
 import com.simyy.fisher.core.ConfigLoader;
+import com.simyy.fisher.ioc.AnnotationDriven;
+import com.simyy.fisher.ioc.BeanFactory;
 import com.simyy.fisher.route.Routers;
 import com.simyy.fisher.servlet.Request;
 import com.simyy.fisher.servlet.Response;
+import org.apache.commons.collections4.MapUtils;
 
 import java.lang.reflect.Method;
+import java.util.Map;
 
 public final class Fisher {
-    /**
-     * 存放所有路由
-     */
-    private Routers routers;
 
-    /**
-     * 配置加载器
-     */
-    private ConfigLoader configLoader;
-
-    /**
-     * 框架是否已经初始化
-     */
     private boolean init = false;
 
+    private Routers routers;
+
+    private ConfigLoader configLoader;
+
+    private BeanFactory beanFactory;
 
     private Fisher() {
         routers = new Routers();
         configLoader = new ConfigLoader();
+        beanFactory = new BeanFactory();
     }
 
     public boolean isInit() {
@@ -85,5 +83,29 @@ public final class Fisher {
             e.printStackTrace();
         }
         return this;
+    }
+
+    public void addBean(String beanName, Object bean) {
+        beanFactory.addBean(beanName, bean);
+    }
+
+    public void addBeans(Map<String, Object> objectMap) {
+        if (MapUtils.isEmpty(objectMap)) {
+            return;
+        }
+
+        objectMap.forEach((key, value) -> addBean(key, value));
+    }
+
+    public Object getBean(String beanName) {
+        return beanFactory.getBean(beanName);
+    }
+
+    public Boolean contain(String beanName){
+        return beanFactory.contain(beanName);
+    }
+
+    public void initDriven(String packName) {
+        AnnotationDriven.init(this, packName);
     }
 }

@@ -38,6 +38,6 @@ public class FisherException extends RuntimeException {
 
     @Override
     public String toString() {
-        return String.format("[%d, %s]", error, msg);
+        return String.format("[%d, %s]", error.getCode(), msg);
     }
 }

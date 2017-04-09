@@ -14,8 +14,10 @@ public class ReflectUtil {
 
             int argCount = args == null ? 0 : args.length;
 
-            // 参数个数对不上
-            FisherException.make(ErrorEnum.PARAM, "参数不匹配");
+            if (argCount == 0) {
+                // 参数个数对不上
+                FisherException.make(ErrorEnum.PARAM, "参数不匹配");
+            }
 
             // 转参数类型
             for (int i = 0; i < argCount; i++) {
@@ -24,6 +26,7 @@ public class ReflectUtil {
 
             return method.invoke(bean, args);
         } catch (Exception e) {
+            e.printStackTrace();
             // 参数个数对不上
             FisherException.make(ErrorEnum.INNER, "内部错误");
         }
