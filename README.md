@@ -18,4 +18,4 @@ Run with jetty,
 mvn jetty:run
 ```
 
-Then, visit: http://127.0.0.0.1:9000/
+Then, visit: http://127.0.0.0.1:4000/
