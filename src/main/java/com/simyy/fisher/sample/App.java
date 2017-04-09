@@ -2,8 +2,7 @@ package com.simyy.fisher.sample;
 
 import com.simyy.fisher.core.Bootstrap;
 import com.simyy.fisher.Fisher;
-import com.simyy.fisher.ioc.AnnotationDriven;
-
+import org.apache.log4j.PropertyConfigurator;
 
 public class App implements Bootstrap {
     @Override

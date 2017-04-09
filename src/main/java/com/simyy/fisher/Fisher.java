@@ -3,10 +3,11 @@ package com.simyy.fisher;
 import com.simyy.fisher.core.ConfigLoader;
 import com.simyy.fisher.ioc.AnnotationDriven;
 import com.simyy.fisher.ioc.BeanFactory;
-import com.simyy.fisher.route.Routers;
+import com.simyy.fisher.route.RouteManager;
 import com.simyy.fisher.servlet.Request;
 import com.simyy.fisher.servlet.Response;
 import org.apache.commons.collections4.MapUtils;
+import org.apache.log4j.BasicConfigurator;
 
 import java.lang.reflect.Method;
 import java.util.Map;
@@ -15,14 +16,14 @@ public final class Fisher {
 
     private boolean init = false;
 
-    private Routers routers;
+    private RouteManager routeManager;
 
     private ConfigLoader configLoader;
 
     private BeanFactory beanFactory;
 
     private Fisher() {
-        routers = new Routers();
+        routeManager = RouteManager.me();
         configLoader = new ConfigLoader();
         beanFactory = new BeanFactory();
     }
@@ -57,31 +58,24 @@ public final class Fisher {
         return configLoader.getConf(name);
     }
 
-    public Fisher addRoutes(Routers routers){
-        this.routers.addRoute(routers.getRoutes());
-        return this;
+    public RouteManager getRouteManager() {
+        return routeManager;
     }
 
-    public Routers getRouters() {
-        return routers;
-    }
-
-    /**
-     * 添加路由
-     * @param path			映射的PATH
-     * @param methodName	方法名称
-     * @param controller	控制器对象
-     * @return
-     */
-    public Fisher addRoute(String path, String methodName, Object controller){
+    public Fisher addRoute(String path, String methodName, Object view){
         try {
-            Method method = controller.getClass().getMethod(methodName, Request.class, Response.class);
-            this.routers.addRoute(path, method, controller);
+            Method method = view.getClass().getMethod(methodName, Request.class, Response.class);
+            this.routeManager.addRoute(path, method, view);
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         } catch (SecurityException e) {
             e.printStackTrace();
         }
+        return this;
+    }
+
+    public Fisher addRoutes(RouteManager routeManager){
+        this.routeManager.addRoutes(routeManager.getFisherRoutes());
         return this;
     }
 

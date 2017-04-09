@@ -9,38 +9,44 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-/**
- * Route matcher
- */
 public class RouteMatcher {
-    private List<Route> routes;
+    private List<FisherRoute> routes;
 
-    public RouteMatcher(List<Route> routes) {
-        this.routes = routes;
+    private static class Holder {
+        private static RouteMatcher ME = new RouteMatcher();
     }
 
-    public void setRoutes(List<Route> routes) {
-        this.routes = routes;
+    public static RouteMatcher me(){
+        return Holder.ME;
     }
 
-    public Route findRoute(String path) {
+    private RouteMatcher() {
+        this.routes = new ArrayList<>();
+    }
+
+    public void setRoutes(List<FisherRoute> fisherRoutes) {
+        this.routes = fisherRoutes;
+    }
+
+    public FisherRoute findRoute(String path) {
         String cleanPath = parsePath(path);
-        List<Route> matchRoutes = new ArrayList<Route>();
-        for (Route route : this.routes) {
-            if (matchesPath(route.getPath(), cleanPath)) {
-                matchRoutes.add(route);
+        List<FisherRoute> matchFisherRoutes = new ArrayList<>();
+        for (FisherRoute fisherRoute : this.routes) {
+            if (matchesPath(fisherRoute.getPath(), cleanPath)) {
+                matchFisherRoutes.add(fisherRoute);
             }
         }
-        // 优先匹配原则
-        giveMatch(path, matchRoutes);
 
-        return matchRoutes.size() > 0 ? matchRoutes.get(0) : null;
+        giveMatch(path, matchFisherRoutes);
+
+        return matchFisherRoutes.size() > 0 ? matchFisherRoutes.get(0) : null;
     }
 
-    private void giveMatch(final String uri, List<Route> routes) {
-        Collections.sort(routes, new Comparator<Route>() {
+    // match url by priority
+    private void giveMatch(final String uri, List<FisherRoute> fisherRoutes) {
+        Collections.sort(fisherRoutes, new Comparator<FisherRoute>() {
             @Override
-            public int compare(Route o1, Route o2) {
+            public int compare(FisherRoute o1, FisherRoute o2) {
                 if (o2.getPath().equals(uri)) {
                     return o2.getPath().indexOf(uri);
                 }
@@ -60,7 +66,8 @@ public class RouteMatcher {
             URI uri = new URI(path);
             return uri.getPath();
         } catch (URISyntaxException e) {
-            return null;
+            e.printStackTrace();
         }
+        return null;
     }
 }

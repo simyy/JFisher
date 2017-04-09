@@ -50,4 +50,9 @@ public class Response {
             e.printStackTrace();
         }
     }
+
+    public static void setDefault(HttpServletResponse response) throws IOException {
+        response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        response.getWriter().println("<html><body>404 Not Found</body></html>");
+    }
 }

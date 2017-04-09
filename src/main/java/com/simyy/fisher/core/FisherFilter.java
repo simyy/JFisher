@@ -1,41 +1,43 @@
 package com.simyy.fisher.core;
 
 import com.simyy.fisher.Fisher;
-import com.simyy.fisher.route.Route;
+import com.simyy.fisher.enums.ErrorEnum;
+import com.simyy.fisher.route.FisherRoute;
 import com.simyy.fisher.route.RouteMatcher;
-import com.simyy.fisher.route.Routers;
+import com.simyy.fisher.route.RouteManager;
 import com.simyy.fisher.servlet.Request;
 import com.simyy.fisher.servlet.Response;
 import com.simyy.fisher.util.PathUtil;
 import com.simyy.fisher.util.ReflectUtil;
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Logger;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.logging.Logger;
 
 public class FisherFilter implements Filter {
-    private static final Logger LOGGER = Logger.getLogger(FisherFilter.class.getName());
+    private static final Logger log = Logger.getLogger(FisherFilter.class);
 
-    private RouteMatcher routeMatcher = new RouteMatcher(new ArrayList<Route>());
+    private RouteMatcher routeMatcher = RouteMatcher.me();
 
     private ServletContext servletContext;
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
+        BasicConfigurator.configure();
         Fisher fisher = Fisher.me();
-        if(!fisher.isInit()){
 
+        if(!fisher.isInit()){
             String className = filterConfig.getInitParameter("bootstrap");
             Bootstrap bootstrap = this.getBootstrap(className);
             bootstrap.init(fisher);
 
-            Routers routers = fisher.getRouters();
-            if(null != routers){
-                routeMatcher.setRoutes(routers.getRoutes());
+            RouteManager routeManager = fisher.getRouteManager();
+            if(null != routeManager){
+                routeMatcher.setRoutes(routeManager.getFisherRoutes());
             }
             servletContext = filterConfig.getServletContext();
 
@@ -52,40 +54,42 @@ public class FisherFilter implements Filter {
 
         String uri = PathUtil.getRelativePath(request);
 
-        LOGGER.info("Request URI：" + uri);
+        log.info("Request URI：" + uri);
 
-        Route route = routeMatcher.findRoute(uri);
+        FisherRoute fisherRoute = routeMatcher.findRoute(uri);
 
-        if (route != null) {
-            handle(request, response, route);
-        } else{
-            filterChain.doFilter(request, response);
+        if (fisherRoute != null) {
+            handle(request, response, fisherRoute);
+        } else {
+            //filterChain.doFilter(request, response);
+            Response.setDefault(response);
+
         }
     }
 
-    private void handle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Route route){
+    private void handle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FisherRoute fisherRoute){
 
-        // 初始化上下文
         Request request = new Request(httpServletRequest);
         Response response = new Response(httpServletResponse);
         FisherContext.initContext(servletContext, request, response);
 
-        Object controller = route.getController();
-        // 要执行的路由方法
-        Method actionMethod = route.getAction();
-        // 执行route方法
+        Object controller = fisherRoute.getController();
+
+        Method actionMethod = fisherRoute.getAction();
+
         executeMethod(controller, actionMethod, request, response);
     }
 
-    private Object executeMethod(Object object, Method method, Request request, Response response){
-        int len = method.getParameterTypes().length;
+    private Object executeMethod(Object object, Method method, Request request, Response response) {
+        // ignore private
         method.setAccessible(true);
-        if(len > 0){
-            Object[] args = getArgs(request, response, method.getParameterTypes());
-            return ReflectUtil.invokeMehod(object, method, args);
-        } else {
-            return ReflectUtil.invokeMehod(object, method);
+
+        Object[] args = null;
+        if(method.getParameterTypes().length > 0){
+            args = getArgs(request, response, method.getParameterTypes());
         }
+
+        return ReflectUtil.invokeMehod(object, method, args);
     }
 
     private Object[] getArgs(Request request, Response response, Class<?>[] params){
@@ -93,7 +97,7 @@ public class FisherFilter implements Filter {
         int len = params.length;
         Object[] args = new Object[len];
 
-        for(int i=0; i<len; i++){
+        for(int i = 0; i < len; i++){
             Class<?> paramTypeClazz = params[i];
             if(paramTypeClazz.getName().equals(Request.class.getName())){
                 args[i] = request;
@@ -107,20 +111,20 @@ public class FisherFilter implements Filter {
     }
 
     private Bootstrap getBootstrap(String className) {
-        if(null != className){
+        if(className != null){
             try {
                 Class<?> clazz = Class.forName(className);
-                Bootstrap bootstrap = (Bootstrap) clazz.newInstance();
-                return bootstrap;
+                return (Bootstrap) clazz.newInstance();
             } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
+                e.printStackTrace();
             } catch (InstantiationException e) {
                 e.printStackTrace();
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
         }
-        throw new RuntimeException("init bootstrap class error!");
+
+        throw new FisherException(ErrorEnum.INNER, String.format("init bootstrap class error class:%s", className));
     }
 
     @Override

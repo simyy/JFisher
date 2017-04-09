@@ -1,17 +1,14 @@
 package com.simyy.fisher.ioc;
 
-import com.simyy.fisher.core.FisherException;
-import com.simyy.fisher.enums.ErrorEnum;
+import org.apache.log4j.Logger;
 
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * ioc factory
- */
 public class BeanFactory {
+    private static final Logger log = Logger.getLogger(BeanFactory.class);
 
-    private  Map<String, Object> beans = new HashMap<String, Object>();
+    private  Map<String, Object> beans = new HashMap<>();
 
     public void addBean(String beanName, Object bean) {
         beans.put(beanName, bean);
@@ -19,13 +16,10 @@ public class BeanFactory {
 
     public Object getBean(String beanName) {
         Object o = beans.get(beanName);
-        if (o != null) {
-            return o;
-        } else {
-            FisherException.make(ErrorEnum.INVALID, String.format("invalid bean:%s", beanName));
+        if (o == null) {
+            log.warn(String.format("invalid bean: %s", beanName));
         }
-
-        return null;
+        return o;
     }
 
     public Boolean contain(String beanName){

@@ -19,11 +19,13 @@ import java.util.jar.JarFile;
 public class AnnotationDriven {
 
     public static void init(Fisher fisher, String packName) {
-        // inject View
+        // inject view
         List<Class<?>> viewPaths = getClassListByAnnotation(packName, View.class);
         if (CollectionUtils.isNotEmpty(viewPaths)) {
             Map<String, Object> viewClass = parseClassPath(viewPaths);
             fisher.addBeans(viewClass);
+
+            // inject route
             viewClass.forEach((key, value) -> {
                 Method[] methods = value.getClass().getDeclaredMethods();
                 for (Method method : methods) {

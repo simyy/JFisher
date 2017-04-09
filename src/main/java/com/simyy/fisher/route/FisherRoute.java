@@ -2,7 +2,7 @@ package com.simyy.fisher.route;
 
 import java.lang.reflect.Method;
 
-public class Route {
+public class FisherRoute {
     /**
      * path
      */
@@ -18,7 +18,7 @@ public class Route {
      */
     private Object controller;
 
-    public Route() {
+    public FisherRoute() {
     }
 
     public String getPath() {

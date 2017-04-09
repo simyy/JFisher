@@ -14,27 +14,19 @@ public class ReflectUtil {
 
             int argCount = args == null ? 0 : args.length;
 
-            if (argCount == 0) {
-                // 参数个数对不上
-                FisherException.make(ErrorEnum.PARAM, "参数不匹配");
-            }
-
-            // 转参数类型
-            for (int i = 0; i < argCount; i++) {
-                args[i] = cast(args[i], types[i]);
+            if (argCount != 0) {
+                for (int i = 0; i < argCount; i++) {
+                    args[i] = cast(args[i], types[i]);
+                }
             }
 
             return method.invoke(bean, args);
         } catch (Exception e) {
             e.printStackTrace();
-            // 参数个数对不上
-            FisherException.make(ErrorEnum.INNER, "内部错误");
         }
         return null;
     }
 
-    /** 类型转换 */
-    @SuppressWarnings("unchecked")
     public static <T> T cast(Object value, Class<T> type) {
         if (value != null && !type.isAssignableFrom(value.getClass())) {
             if (is(type, int.class, Integer.class)) {
@@ -54,7 +46,6 @@ public class ReflectUtil {
         return (T) value;
     }
 
-    /** 对象是否其中一个 */
     public static boolean is(Object obj, Object... mybe) {
         if (obj != null && mybe != null) {
             for (Object mb : mybe)

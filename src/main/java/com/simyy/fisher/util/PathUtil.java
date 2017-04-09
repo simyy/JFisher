@@ -42,7 +42,9 @@ public class PathUtil {
         try {
             path = URLDecoder.decode(path, "UTF-8");
         } catch (UnsupportedEncodingException ex) {
+            ex.printStackTrace();
         }
+
         return path;
     }
 }
