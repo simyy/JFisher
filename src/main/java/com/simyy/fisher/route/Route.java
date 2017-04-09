@@ -2,22 +2,19 @@ package com.simyy.fisher.route;
 
 import java.lang.reflect.Method;
 
-/**
- * 路由
- */
 public class Route {
     /**
-     * 路由path
+     * path
      */
     private String path;
 
     /**
-     * 执行路由的方法
+     * method
      */
     private Method action;
 
     /**
-     * 路由所在的控制器
+     * controller
      */
     private Object controller;
 

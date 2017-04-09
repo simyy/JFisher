@@ -1,5 +1,8 @@
 package com.simyy.fisher.util;
 
+import com.simyy.fisher.core.FisherException;
+import com.simyy.fisher.enums.ErrorEnum;
+
 import java.lang.reflect.Method;
 
 
@@ -12,7 +15,7 @@ public class ReflectUtil {
             int argCount = args == null ? 0 : args.length;
 
             // 参数个数对不上
-            ExceptionUtil.makeRunTimeWhen(argCount != types.length, "%s in %s", method.getName(), bean);
+            FisherException.make(ErrorEnum.PARAM, "参数不匹配");
 
             // 转参数类型
             for (int i = 0; i < argCount; i++) {
@@ -21,7 +24,8 @@ public class ReflectUtil {
 
             return method.invoke(bean, args);
         } catch (Exception e) {
-            ExceptionUtil.makeRuntime(e);
+            // 参数个数对不上
+            FisherException.make(ErrorEnum.INNER, "内部错误");
         }
         return null;
     }

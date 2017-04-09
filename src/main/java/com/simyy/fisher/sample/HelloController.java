@@ -5,6 +5,10 @@ import com.simyy.fisher.servlet.Response;
 
 public class HelloController {
 
+    public static HelloController create() {
+        return new HelloController();
+    }
+
     public void sayHello(Request request, Response response){
         response.text("I'm fisher!");
     }

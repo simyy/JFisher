@@ -1,5 +1,6 @@
 package com.simyy.fisher;
 
+import com.simyy.fisher.core.ConfigLoader;
 import com.simyy.fisher.route.Routers;
 import com.simyy.fisher.servlet.Request;
 import com.simyy.fisher.servlet.Response;

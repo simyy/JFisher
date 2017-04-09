@@ -1,4 +1,4 @@
-package com.simyy.fisher;
+package com.simyy.fisher.core;
 
 import com.simyy.fisher.servlet.Request;
 import com.simyy.fisher.servlet.Response;

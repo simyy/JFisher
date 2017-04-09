@@ -1,6 +1,6 @@
 package com.simyy.fisher.sample;
 
-import com.simyy.fisher.Bootstrap;
+import com.simyy.fisher.core.Bootstrap;
 import com.simyy.fisher.Fisher;
 
 

@@ -1,5 +1,6 @@
-package com.simyy.fisher;
+package com.simyy.fisher.core;
 
+import com.simyy.fisher.Fisher;
 import com.simyy.fisher.route.Route;
 import com.simyy.fisher.route.RouteMatcher;
 import com.simyy.fisher.route.Routers;

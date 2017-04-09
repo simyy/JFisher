@@ -1,4 +1,4 @@
-package com.simyy.fisher;
+package com.simyy.fisher.core;
 
 import java.io.File;
 import java.io.FileInputStream;
