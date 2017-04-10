@@ -1,11 +1,9 @@
 # fisher
 a mvc framework for java.
 
-## components
+## feature
 
-* route
-* config
-* filter
+* mvc
 * annotion
 * ioc
 
@@ -18,4 +16,11 @@ Run with jetty,
 mvn jetty:run
 ```
 
-Then, visit: http://127.0.0.0.1:4000/
+Visit: http://127.0.0.0.1:4000/
+
+> if you want to use annotion, please set fisrt.
+
+```
+// like this
+fisher.initDriven("com.simyy.fisher.sample");
+```
