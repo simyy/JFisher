@@ -2,6 +2,7 @@ package com.simyy.fisher.servlet;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 public class Request {
     private HttpServletRequest raw;
@@ -27,12 +28,16 @@ public class Request {
         return null;
     }
 
-    public String query(String name){
+    public String getParam(String name){
         return raw.getParameter(name);
     }
 
+    public Map<String, String[]> getParams() {
+        return raw.getParameterMap();
+    }
+
     public Integer queryAsInt(String name){
-        String val = query(name);
+        String val = getParam(name);
         if(null != val && !val.equals("")){
             return Integer.valueOf(val);
         }
