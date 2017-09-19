@@ -1,4 +1,4 @@
-package com.simyy.fisher.route;
+package com.simyy.jfisher.route;
 
 import java.lang.reflect.Method;
 

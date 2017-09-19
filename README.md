@@ -1,4 +1,4 @@
-# fisher
+# JFisher
 a mvc framework for java.
 
 ## feature
@@ -9,7 +9,7 @@ a mvc framework for java.
 
 ## sample
 
-This is a sample in src/main/com/simyy/fisher/sample
+This is a sample in src/main/com/simyy/jfisher/sample
 
 Run with jetty,
 ```
@@ -22,5 +22,5 @@ Visit: http://127.0.0.0.1:4000/
 
 ```
 // like this
-fisher.initDriven("com.simyy.fisher.sample");
+fisher.initDriven("com.simyy.jfisher.sample");
 ```

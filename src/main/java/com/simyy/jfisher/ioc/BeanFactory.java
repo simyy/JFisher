@@ -1,4 +1,4 @@
-package com.simyy.fisher.ioc;
+package com.simyy.jfisher.ioc;
 
 import org.apache.log4j.Logger;
 

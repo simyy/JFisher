@@ -1,7 +1,4 @@
-package com.simyy.fisher.util;
-
-import com.simyy.fisher.core.FisherException;
-import com.simyy.fisher.enums.ErrorEnum;
+package com.simyy.jfisher.util;
 
 import java.lang.reflect.Method;
 

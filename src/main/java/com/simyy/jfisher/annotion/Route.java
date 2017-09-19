@@ -1,4 +1,4 @@
-package com.simyy.fisher.annotion;
+package com.simyy.jfisher.annotion;
 
 import java.lang.annotation.*;
 

@@ -1,4 +1,4 @@
-package com.simyy.fisher.util;
+package com.simyy.jfisher.util;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;

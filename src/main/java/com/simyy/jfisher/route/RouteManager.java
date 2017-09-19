@@ -1,4 +1,4 @@
-package com.simyy.fisher.route;
+package com.simyy.jfisher.route;
 
 import org.apache.log4j.Logger;
 

@@ -1,6 +1,6 @@
-package com.simyy.fisher.route;
+package com.simyy.jfisher.route;
 
-import com.simyy.fisher.util.PathUtil;
+import com.simyy.jfisher.util.PathUtil;
 
 import java.net.URI;
 import java.net.URISyntaxException;

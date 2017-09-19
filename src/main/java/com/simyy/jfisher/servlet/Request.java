@@ -1,4 +1,4 @@
-package com.simyy.fisher.servlet;
+package com.simyy.jfisher.servlet;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;

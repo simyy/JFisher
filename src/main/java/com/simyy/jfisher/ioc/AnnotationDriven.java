@@ -1,8 +1,8 @@
-package com.simyy.fisher.ioc;
+package com.simyy.jfisher.ioc;
 
-import com.simyy.fisher.Fisher;
-import com.simyy.fisher.annotion.Route;
-import com.simyy.fisher.annotion.View;
+import com.simyy.jfisher.Fisher;
+import com.simyy.jfisher.annotion.Route;
+import com.simyy.jfisher.annotion.View;
 import org.apache.commons.collections4.CollectionUtils;
 
 import java.io.File;

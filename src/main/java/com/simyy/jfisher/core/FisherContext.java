@@ -1,7 +1,7 @@
-package com.simyy.fisher.core;
+package com.simyy.jfisher.core;
 
-import com.simyy.fisher.servlet.Request;
-import com.simyy.fisher.servlet.Response;
+import com.simyy.jfisher.servlet.Request;
+import com.simyy.jfisher.servlet.Response;
 
 import javax.servlet.ServletContext;
 

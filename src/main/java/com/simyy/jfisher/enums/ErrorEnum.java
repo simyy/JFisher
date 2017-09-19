@@ -1,4 +1,4 @@
-package com.simyy.fisher.enums;
+package com.simyy.jfisher.enums;
 
 /**
  * Created by yu on 17/4/9.

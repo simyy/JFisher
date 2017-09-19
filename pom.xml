@@ -4,50 +4,55 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.simyy.fisher</groupId>
-    <artifactId>fisher</artifactId>
+    <groupId>com.simyy.jfisher</groupId>
+    <artifactId>jfisher</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <name>fisher</name>
-    <url>https://github.com/simyy/fisher</url>
+    <url>https://github.com/simyy/JFisher</url>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <servlet.version>3.0.1</servlet.version>
+        <fastjson.version>1.2.24</fastjson.version>
+        <log4j.version>1.2.17</log4j.version>
+        <servlet-api.version>3.1.0</servlet-api.version>
+        <commons-collections.version>4.1</commons-collections.version>
+        <junit.version>4.10</junit.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.24</version>
+            <version>${fastjson.version}</version>
         </dependency>
 
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
-            <version>1.2.17</version>
+            <version>${log4j.version}</version>
         </dependency>
 
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>3.1.0</version>
+            <version>${servlet-api.version}</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-collections4</artifactId>
-            <version>4.1</version>
+            <version>${commons-collections.version}</version>
         </dependency>
 
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.10</version>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

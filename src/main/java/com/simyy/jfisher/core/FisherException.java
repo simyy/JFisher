@@ -1,6 +1,6 @@
-package com.simyy.fisher.core;
+package com.simyy.jfisher.core;
 
-import com.simyy.fisher.enums.ErrorEnum;
+import com.simyy.jfisher.enums.ErrorEnum;
 
 /**
  * 框架异常 (to break logic)

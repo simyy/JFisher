@@ -1,13 +1,12 @@
-package com.simyy.fisher;
+package com.simyy.jfisher;
 
-import com.simyy.fisher.core.ConfigLoader;
-import com.simyy.fisher.ioc.AnnotationDriven;
-import com.simyy.fisher.ioc.BeanFactory;
-import com.simyy.fisher.route.RouteManager;
-import com.simyy.fisher.servlet.Request;
-import com.simyy.fisher.servlet.Response;
+import com.simyy.jfisher.core.ConfigLoader;
+import com.simyy.jfisher.ioc.AnnotationDriven;
+import com.simyy.jfisher.ioc.BeanFactory;
+import com.simyy.jfisher.route.RouteManager;
+import com.simyy.jfisher.servlet.Request;
+import com.simyy.jfisher.servlet.Response;
 import org.apache.commons.collections4.MapUtils;
-import org.apache.log4j.BasicConfigurator;
 
 import java.lang.reflect.Method;
 import java.util.Map;
