@@ -6,15 +6,16 @@
     <display-name>Archetype Created Web Application</display-name>
 
     <filter>
-        <filter-name>fisher</filter-name>
-        <filter-class>com.simyy.jfisher.core.FisherFilter</filter-class>
+        <filter-name>jfisher</filter-name>
+        <filter-class>cn.simyy.jfisher.core.FisherFilter</filter-class>
         <init-param>
             <param-name>bootstrap</param-name>
-            <param-value>com.simyy.jfisher.sample.App</param-value>
+            <param-value>cn.simyy.jfisher.sample.App</param-value>
         </init-param>
     </filter>
+
     <filter-mapping>
-        <filter-name>fisher</filter-name>
+        <filter-name>jfisher</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
